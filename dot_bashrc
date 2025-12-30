@@ -1,0 +1,56 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Load direnv env
+eval "$(direnv hook bash)"
+
+# Load ble.sh
+[[ $- == *i* ]] && source -- /usr/share/blesh/ble.sh --attach=none
+
+# PS1='[\u@\h \W]\$ '
+
+# Use bash-completion, if available, and avoid double-sourcing
+[[ $PS1 &&
+  ! ${BASH_COMPLETION_VERSINFO:-} &&
+  -f /usr/share/bash-completion/bash_completion ]] &&
+    . /usr/share/bash-completion/bash_completion
+
+# Aliases
+alias cl='clear'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias la='ls -a --color=auto'
+alias ll='ls -l --color=auto'
+alias lla='ls -la --color=auto'
+alias myip='curl -s ipinfo.io | jq'
+alias sacman='sudo pacman'
+alias sen='systemctl --user enable --now'
+alias ssen='sudo systemctl enable --now'
+alias syu='sudo pacman -Syu'
+
+# Load Spicetify to PATH
+export PATH=$PATH:/home/rahal/.spicetify
+
+# Load Starship
+eval "$(starship init bash)"
+
+# Load thefuck
+eval "$(thefuck --alias)"
+
+# Load Cuda to PATH
+export PATH=/opt/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
+
+# Load pywal color scheme
+wal -i "/home/rahal/Pictures/thumbnail.png" -b "#1e2232" -n -e -q
+
+fastfetch
+
+# Add this line at the end of .bashrc:
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+. "$HOME/.local/bin/env"
