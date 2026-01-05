@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Load direnv env
-eval "$(direnv hook bash)"
-
 # Load ble.sh
 [[ $- == *i* ]] && source -- /usr/share/blesh/ble.sh --attach=none
 
@@ -20,12 +17,15 @@ eval "$(direnv hook bash)"
     . /usr/share/bash-completion/bash_completion
 
 # Aliases
+alias dtree='tree -a --gitignore -I ".git" > .tree' # creates a .tree file
+alias ctree='tree -a --gitignore -I ".git"' # outputs a clean tree
 alias cl='clear'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias la='ls -a --color=auto'
 alias ll='ls -l --color=auto'
 alias lla='ls -la --color=auto'
+alias mictest='arecord -d 5 -f cd mictest.wav && aplay mictest.wav && rm mictest.wav' # Records 5 seconds into a file, plays it back, then deletes it.
 alias myip='curl -s ipinfo.io | jq'
 alias sacman='sudo pacman'
 alias sen='systemctl --user enable --now'
